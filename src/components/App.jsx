@@ -1,10 +1,10 @@
-// import Title from '../components/Title';
+import React, { useEffect, useState } from "react";
 import Filter from '../components/Filter';
-import 'purecss/build/pure.css';
 import ClipLoader from 'react-spinners/ClipLoader';
 import ReactPaginate from 'react-paginate';
+import 'purecss/build/pure.css';
 import "./App.css";
-import React, { useEffect, useState } from "react";
+
 
 
 function App() {

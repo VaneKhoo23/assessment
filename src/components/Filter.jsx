@@ -1,4 +1,3 @@
-import React, { useState, useCallback } from "react";
 import "./Filter.css";
 
 function Filter({cat, cats, fn, onNameChange}) {

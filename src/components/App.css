@@ -21,7 +21,7 @@
     font-weight: bold;
     font-size: 2rem;
   }
-  
+
   .Posts ul {
     list-style: none;
     display: grid;
@@ -129,3 +129,4 @@
   #Pagination {
     padding: 2rem;
   }
+

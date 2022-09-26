@@ -54,7 +54,7 @@ function App() {
         setLoading(false);
       });
 
-  }, []);
+  });
 
 
 
@@ -92,14 +92,14 @@ function App() {
     <main className="App">{/* Complete the exercise here. */}
       <section className="Posts">
       <header>Posts</header>
-      {/* <Posts c={cat} c_list={cats} handleChange={handleChange} loading={loading}/> */}
-
+      
+      <h5>Select a specific category!</h5>
       <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
       <br/>
       {loading && <div>A moment please...</div>}
-      {/* {error && (
+      {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
-      )} */}
+      )}
       <ul>
         {data &&
         displayUsers?.map(({ id, title, author, publishDate, categories, summary }) => (

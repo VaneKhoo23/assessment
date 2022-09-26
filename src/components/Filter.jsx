@@ -4,8 +4,7 @@ function Filter({cat, cats, fn, onNameChange}) {
 
   var category=cat;
 
-  // in the code below, it is such that for each category in the list of categories, it is map to an option to be
-  // shown in the dropdown filter
+  // in the code below, it is such that for each category in the list of categories, it is mapped to an option to be shown in the dropdown filter
   return (
     <div>
     <div className="select_filter">

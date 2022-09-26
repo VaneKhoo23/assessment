@@ -100,52 +100,54 @@ function App() {
   return ( // else load main content
     <main className="App">{/* Complete the exercise here. */}
       <section className="Posts">
-      <header>Posts</header>
-      
-      <h5>Select a specific category!</h5>
-      <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
-      <br/>
-      {loading && <ClipLoader color={'#fff'} size={150} />} 
-      {error && ( 
-        <div>{`There is a problem fetching the post data - ${error}`}</div>
-      )}
-      <ul>
-        {data &&
-        displayUsers?.map(({ id, title, author, publishDate, categories, summary }) => (
-          <li key={id}>
-            <article id="content">
-              <section className="page">
-                  <img src={author.avatar} className="icon" alt="" /> 
-              </section>
-              <section className="page">
-                  <h4 id="author">By {author.name} </h4>
-              </section>
-              
-              <h3> {title} </h3> 
-              <h4>Published on {publishDate}. </h4>
-              <section className="page">
-                <section className = "pure-u-1-16">
-                    <h4>Categories: </h4>
+        <header>Posts</header>
+        
+        <h5>Select a specific category!</h5>
+        <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
+        <br/>
+        {loading && <ClipLoader color={'#fff'} size={150} />} 
+        {error && ( 
+          <div>{`There is a problem fetching the post data - ${error}`}</div>
+        )}
+        <ul>
+          {/* For each post, map it such that its properties are shown in each list element */}
+          {data &&
+          displayUsers?.map(({ id, title, author, publishDate, categories, summary }) => (
+            <li key={id}>
+              <article id="content">
+                <section className="page">
+                    <img src={author.avatar} className="icon" alt="" /> 
                 </section>
-                <section className = "pure-u-15-16" id="category">
-                    <ul>
-                      {categories && 
-                        categories.map(({ id, name }) => (
-                          <li key={id}>
-                            <h5>{name}</h5>
-                          </li>
-                        ))}
-                    </ul>
+                <section className="page">
+                    <h4 id="author">By {author.name} </h4>
                 </section>
-              </section>
-              <br/>
-              <h4>Summary:</h4>
-              <h4 className="summary">{summary}</h4>
-            </article>
-          </li>
-        ))}
-      </ul>
+                
+                <h3> {title} </h3> 
+                <h4>Published on {publishDate}. </h4>
+                <section className="page">
+                  <section className = "pure-u-1-16">
+                      <h4>Categories: </h4>
+                  </section>
+                  <section className = "pure-u-15-16" id="category">
+                      <ul>
+                        {categories && 
+                          categories.map(({ id, name }) => (
+                            <li key={id}>
+                              <h5>{name}</h5>
+                            </li>
+                          ))}
+                      </ul>
+                  </section>
+                </section>
+                <br/>
+                <h4>Summary:</h4>
+                <h4 className="summary">{summary}</h4>
+              </article>
+            </li>
+          ))}
+        </ul>
       </section>
+
     {/* Using react paginate library */}
     <section id="Pagination"> 
         <ReactPaginate 

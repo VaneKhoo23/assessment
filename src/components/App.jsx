@@ -9,45 +9,47 @@ import React, { useEffect, useState } from "react";
 
 function App() {
 
+  // using useState hooks for state variables
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const set = new Set();
   const [cats, setCats] = useState([]);
   const [cat, setCat] = useState('');
   const [pageNumber, setPageNumber] = useState(0);
+  // consts
   const usersPerPage = 5;
   const pagesVisited = pageNumber*usersPerPage;
+  // set to get unique list of categories from api data
+  const set = new Set();
 
-  
+  // using useEffect hook to manage the data retrieval to run and fetch data on the first render
   useEffect(() => {
-    const controller = new AbortController();
-    fetch("/api/posts", { signal: controller.signal })
-      .then((response => {
-        if (!response.ok) {
+    const controller = new AbortController(); // to abort fetch requests before it is completed
+    fetch("/api/posts", { signal: controller.signal }) 
+      .then((response => { // handling the response with .then
+        if (!response.ok) { // if HTTP status is not "ok", throw error
           throw new Error(
             'This is an HTTP error: The status is ${response.status}'
           );
         }
-        return response.json();
+        return response.json(); // convert Response onject to json format
       }))
-      .then(json => {
+      .then(json => { // get actual data from Promise
           setData(json);
           setLoading(false);
-          // put into categories
-          set.add("All");
+          set.add("All"); // add "All" as one of the 'categories' to be used for the filter
 
-          if(data !== null) {
+          if(data !== null) { 
             for (let i = 0; i < data.posts?.length; i++) {
               const post = data.posts[i];
               for (let j = 0; j < post.categories.length; j++) {
-                set.add(post.categories[j].name);
+                set.add(post.categories[j].name); // add unique categories to the set
               }
             }
-            setCats(Array.from(set));
+            setCats(Array.from(set)); // convert set to array to allow it to be used with mapping functions
         }
       })
-      .catch(error => {
+      .catch(error => { // handle errors
         window.alert(error);
         setError(error);
         setLoading(false);
@@ -55,15 +57,13 @@ function App() {
 
   });
 
-
-
-
+  // function to be passed to filter component
   const handleChange = event => {
       setCat(event.target.value);
       console.log(cat);
   }
   
-
+  // data after filtering from the category filer dropdown
   const filterDropdown = 
       data?.posts?.filter(function(result) {
           for(let i=0; i < result.categories.length; i ++) {
@@ -77,15 +77,18 @@ function App() {
           return false;
       });
 
+  // data to be shown on a single page (pagination)
   const displayUsers = filterDropdown?.slice(pagesVisited, pagesVisited+usersPerPage);
 
- 
+  // pageCount for given data
   const pageCount = Math.ceil(filterDropdown?.length / usersPerPage);
 
+  // to changepages
   const changePage = ({selected}) => {
     setPageNumber(selected);
   }; 
 
+  // if page is loading, show a message/loader
   if (loading) {
     return (
       <main>
@@ -93,8 +96,8 @@ function App() {
         <ClipLoader color={'#fff'} size={150} />
       </main>
     );
-  }
-  return ( 
+  } 
+  return ( // else load main content
     <main className="App">{/* Complete the exercise here. */}
       <section className="Posts">
       <header>Posts</header>
@@ -102,8 +105,8 @@ function App() {
       <h5>Select a specific category!</h5>
       <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
       <br/>
-      {loading && <ClipLoader color={'#fff'} size={150} />}
-      {error && (
+      {loading && <ClipLoader color={'#fff'} size={150} />} 
+      {error && ( 
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}
       <ul>
@@ -143,8 +146,8 @@ function App() {
         ))}
       </ul>
       </section>
-
-    <section id="Pagination">
+    {/* Using react paginate library */}
+    <section id="Pagination"> 
         <ReactPaginate 
           previousLabel={"Previous"}
           nextLabel={"Next"}

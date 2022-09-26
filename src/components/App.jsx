@@ -1,7 +1,7 @@
 // import Title from '../components/Title';
 import Filter from '../components/Filter';
 import 'purecss/build/pure.css';
-import ReactDOM from 'react-dom';
+import ClipLoader from 'react-spinners/ClipLoader';
 import ReactPaginate from 'react-paginate';
 import "./App.css";
 import React, { useEffect, useState } from "react";
@@ -10,7 +10,6 @@ import React, { useEffect, useState } from "react";
 function App() {
 
   const [data, setData] = useState([]);
-  const [isFetched,setIsFetched] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const set = new Set();
@@ -87,7 +86,14 @@ function App() {
     setPageNumber(selected);
   }; 
 
-
+  if (loading) {
+    return (
+      <main>
+        <h1>A moment please... </h1>
+        <ClipLoader color={'#fff'} size={150} />
+      </main>
+    );
+  }
   return ( 
     <main className="App">{/* Complete the exercise here. */}
       <section className="Posts">
@@ -96,7 +102,7 @@ function App() {
       <h5>Select a specific category!</h5>
       <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
       <br/>
-      {loading && <div>A moment please...</div>}
+      {loading && <ClipLoader color={'#fff'} size={150} />}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
       )}

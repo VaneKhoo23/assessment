@@ -4,42 +4,42 @@
     box-sizing: border-box;
   }
   
-  body {
-    color: #333;
-  }
-  
-  .App {
-    font-family: sans-serif;
-    width: 90vw;
-    margin: 0 auto;
-    padding: 2rem 0;
-  }
-  
-  header {
-    margin-bottom: 1rem;
-    font-family: sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-  }
+body {
+  color: #333;
+}
 
-  .Posts ul {
-    list-style: none;
-    display: grid;
-    /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
-    grid-row-gap: 1rem;
-    /* grid-column-gap: 20px; */
-  }
+.App {
+  font-family: sans-serif;
+  width: 90vw;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+header {
+  margin-bottom: 1rem;
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+.Posts ul {
+  list-style: none;
+  display: grid;
+  /* grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); */
+  grid-row-gap: 1rem;
+  /* grid-column-gap: 20px; */
+}
   
-  .Posts li {
-    border: 1px solid #747272;
-    padding: 10px;
-    border-radius: 5px;
-  }
-  
-  h3 {
-    font-size: 1rem;
-    line-height: 1.4;
-  }
+.Posts li {
+  border: 1px solid #747272;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+h3 {
+  font-size: 1rem;
+  line-height: 1.4;
+}
     
  #author {
     position: absolute;
@@ -74,7 +74,7 @@
     height: 0.8rem;
     border-spacing: 0em 0em;
     padding: 0px 10px 0px 0px;
-  }
+}
   
 #category  li {
     border: 1px solid #747272;
@@ -84,7 +84,8 @@
     border-radius: 0.3rem;
     font-size: 0.5rem;
     display: table-cell;
-  }
+}
+
 #category h4 {
     font-size: 0.8rem;
 }
@@ -92,41 +93,41 @@
 .summary {
     font-size: 0.8rem;
     font-weight:bold;
-  }
+}
 
-  .paginationBttns {
-    width: 80%;
-    height: 40px;
-    list-style: none;
-    display: flex;
-    justify-content: center;
-  }
-  
-  .paginationBttns a {
-    padding: 10px;
-    margin: 8px;
-    border-radius: 5px;
-    border: 1px solid #2b2eff;
-    color: #2b2eff;
-    cursor: pointer;
-  }
-  
-  .paginationBttns a:hover {
-    color: white;
-    background-color: #2b2eff;
-  }
-  
-  .paginationActive a {
-    color: white;
-    background-color: #2b2eff;
-  }
-  
-  .paginationDisabled a {
-    color: grey;
-    background-color: grey;
-  }
- 
-  #Pagination {
-    padding: 2rem;
-  }
+.paginationBttns {
+  width: 80%;
+  height: 40px;
+  list-style: none;
+  display: flex;
+  justify-content: center;
+}
+
+.paginationBttns a {
+  padding: 10px;
+  margin: 8px;
+  border-radius: 5px;
+  border: 1px solid #2b2eff;
+  color: #2b2eff;
+  cursor: pointer;
+}
+
+.paginationBttns a:hover {
+  color: white;
+  background-color: #2b2eff;
+}
+
+.paginationActive a {
+  color: white;
+  background-color: #2b2eff;
+}
+
+.paginationDisabled a {
+  color: grey;
+  background-color: grey;
+}
+
+#Pagination {
+  padding: 2rem;
+}
 

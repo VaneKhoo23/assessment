@@ -1,7 +1,8 @@
 // import Title from '../components/Title';
+import Filter from '../components/Filter';
 import 'purecss/build/pure.css';
 import "./App.css";
-import React, { useEffect, useState, useStateIfMounted } from "react";
+import React, { useEffect, useState } from "react";
 
 
 function App() {
@@ -9,8 +10,10 @@ function App() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const categories = [];
-  // const [value, setValue] = useState('checking value...');
+  const set = new Set();
+  const [cats, setCats] = useState([]);
+  const [cat, setCat] = useState('');
+
 
   useEffect(() => {
     const controller = new AbortController();
@@ -18,21 +21,25 @@ function App() {
       .then((response => {
         if (!response.ok) {
           throw new Error(
-            `This is an HTTP error: The status is ${response.status}`
+            'This is an HTTP error: The status is ${response.status}'
           );
         }
-        return response.json()
+        return response.json();
       }))
       .then(json => {
         setData(json);
         setLoading(false);
         // put into categories
+        console.log("WHy");
+        set.add("All");
         for (let i = 0; i < data.posts.length; i++) {
           const post = data.posts[i];
-          for (let j = 0; j < post.categories.length; j++){
-              categories.push(post.categories[j]);
+          for (let j = 0; j < post.categories.length; j++) {
+            set.add(post.categories[j].name);
           }
         }
+        console.log("WHy");
+        setCats(Array.from(set));
       })
       .catch(error => {
         window.alert(error);
@@ -44,20 +51,41 @@ function App() {
     };
   }, []);
 
+  // User is currently on this page
+  // const [currentPage, setCurrentPage] = useState(1);
+  // // No of Records to be displayed on each page   
+  // const [postsPerPage, setPostsPerPage] = useState(10);
+  // const indexOfLastPost = currentPage*postsPerPage;
+  // const indexOfFirstPost = indexOfLastPost-postsPerPage;
+  // const currentPosts = data.posts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const handleChange = event => {
+      setCat(event.target.value);
+      console.log(cat);
+  }
+
+  const filterDropdown = data.posts.filter(function(result) {
+      for(let i=0; i < result.categories.length; i ++) {
+        if (result.categories[i].name === cat) {
+          return result.categories[i].name === cat
+        }
+      }
+      if (cat==="All") {
+        return true;
+      }
+      return false;
+      
+  });
+
+
+
   return ( 
     <div className="App">{/* Complete the exercise here. */}
       
       <h1>Posts</h1>
-      {/* <form onSubmit={handleSubmit}>
-        <select value={categories} onChange={handleChange}>
-          {categories.map(cat => (
-            <option key={cat.id} value={cat.name}>
-              {cat.name}
-            </option>
-          ))}
-        </select>
 
-      </form> */}
+      <Filter cat={cat} cats={cats} fn={handleChange} onNameChange={setCat}/>
+
       {loading && <div>A moment please...</div>}
       {error && (
         <div>{`There is a problem fetching the post data - ${error}`}</div>
@@ -67,23 +95,23 @@ function App() {
         data.posts.map(({ id, title, author, publishDate, categories, summary }) => (
           <li key={id}>
             <div id="content">
-              <div class="page">
-                  <img src={author.avatar} class="icon" alt="" /> 
+              <div className="page">
+                  <img src={author.avatar} className="icon" alt="" /> 
               </div>
-              <div class="page">
+              <div className="page">
                   <h4 id="author">By {author.name} </h4>
               </div>
                 
               </div>
               <h3> {title} </h3> 
               <h4>Published on {publishDate}. </h4>
-              <div class="page">
-                <div class = "pure-u-1-16">
+              <div className="page">
+                <div className = "pure-u-1-16">
                     <h4>Categories: </h4>
                 </div>
-                <div class = "pure-u-15-16" id="category">
+                <div className = "pure-u-15-16" id="category">
                     <ul>
-                      {categories &&
+                      {categories && 
                         categories.map(({ id, name }) => (
                           <li key={id}>
                             <h4>{name}</h4>
@@ -94,12 +122,48 @@ function App() {
               </div>
               <br/>
               <h4>Summary:</h4>
-              <h4 class="summary">{summary}</h4>
+              <h4 className="summary">{summary}</h4>
           </li>
         ))}
       </ul>
-      
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      
+      {/* <nav>
+        <ul className='pagination justify-content-center'>
+            <li className="page-item">
+              <a className="page-link"
+                  onClick={prevPage}
+                  href='#'>
+                  Previous
+              </a>
+            </li>
+            {pageNumbers.map(pgNumber => (
+                <li key={pgNumber}
+                  className={`page-item ${currentPage==pgNumber ? 'active': ''}`}>
+                  
+                  <a onClick={() => setCurrentPage(pgNumber)}
+                    className='page-link'
+                    href='#'>
+                    {pgNumber}  
+                  </a>
+                </li>
+            ))}
+        </ul>
+            </nav> */}
     </div>
   );
 }
